@@ -1,15 +1,17 @@
 Question 1015. Smallest Integer Divisible by K.
 
 Problem Statement : Given a positive integer K, you need find the smallest positive integer N such that N is divisible by K, and N only contains the digit 1.
-Return the length of N.  If there is no such N, return -1.
+                    Return the length of N.  If there is no such N, return -1.
 Example 1:
 Input: 1
 Output: 1
 Explanation: The smallest answer is N = 1, which has length 1.
+
 Example 2:
 Input: 2
 Output: -1
 Explanation: There is no such positive integer N divisible by 2.
+
 Example 3:
 Input: 3
 Output: 3
@@ -22,22 +24,27 @@ Solution
 
 Intuition : 
 
-Let’s say the final result has N digits of 1.
-If N exists , and N <= K just do a Brute Force check.
-Also if K is multiple of 2 i.e. ( K % 2 == 0), then return -1(as given) since any N which completely divides K would have to be even (i.e. should contain zero in the end, which is not permitted according To the given conditions in question)
-Also if K  is multiple of 5 i.e. ( K % 5 == 0), then return -1(as given) since any N which completely divides K should contain 0 or 5 at the end (i.e. should contain zero or five, which is not permitted according To the given conditions in question)
+1. Let’s say the final result has N digits of 1.
+2. If N exists , and N <= K just do a Brute Force check.
+3. Also if K is multiple of 2 i.e. ( K % 2 == 0), then return -1(as given) since any N which completely divides K would have to be even 
+   (i.e. should contain zero in the end, which is not permitted according To the given conditions in question)
+4. Also if K  is multiple of 5 i.e. ( K % 5 == 0), then return -1(as given) since any N which completely divides K should contain 0 or 5 at the end 
+   (i.e. should contain zero or five, which is not permitted according To the given conditions in question)
 
 Calculation :
 mno => 100 * m + 10 * n + o
 
 Algorithm :
-For a given K, we evaluate 1 % K, 11 % K, 111 % K, ..., 11...1 (K '1's) % K.
-If any remainder is 0, then the current number is the smallest integer divisible by K.
-If none of the remainders is 0, then at some point, there must be some duplicate remainders (due to Pigeonhole principle), as the K remainders can only take at most K-1 different values excluding 0. In this case, no number with the pattern 1...1 is divisible by K. This is because once a remainder has a duplicate, the next remainder will be in a loop, as the previous remainder determines the next_mod, i.e., next_mod = (10 * prev_mod + 1) % K. Therefore, we will never see remainder==0.
+1. For a given K, we evaluate 1 % K, 11 % K, 111 % K, ..., 11...1 (K '1's) % K.
+2. If any remainder is 0, then the current number is the smallest integer divisible by K.
+3. If none of the remainders is 0, then at some point, there must be some duplicate remainders (due to Pigeonhole principle), 
+   as the K remainders can only take at most K-1 different values excluding 0. In this case, no number with the pattern 1...1 is divisible by K. 
+   This is because once a remainder has a duplicate, the next remainder will be in a loop, as the previous remainder determines the next_mod, 
+   i.e., next_mod = (10 * prev_mod + 1) % K. Therefore, we will never see remainder==0.
 
 Example 1.
-
-A simple example is when K is 6. Once we see 1111 % 6 = 1, we immediately know 11111 % 6 will be 5, since 1 % 6 = 1 and 11 % 6 = 5. Therefore, there will be no such number that is divisible by 6.
+A simple example is when K is 6. Once we see 1111 % 6 = 1, we immediately know 11111 % 6 will be 5, since 1 % 6 = 1 and 11 % 6 = 5. 
+Therefore, there will be no such number that is divisible by 6.
 1 % 6 = 1
 11 % 6 = 5
 111 % 6 = 3
@@ -97,6 +104,8 @@ class Solution {
         return -1;
     }
 }
+
+
 Complexity :
 Time Complexity : O(K), where K is the given integer
 Since the for loop , loopes from 1 to K only, hence loop goes on till the variable don;t become equal to K.
